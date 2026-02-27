@@ -1,0 +1,10 @@
+java -cp ".;*" clojure.main LR1.clj
+
+для гитхаба (в том числе desktop)
+молодец мужик, что сказал про контроль версий, я закрыл гештальд с созданием добавления локального репозитория
+
+git init
+git add .
+git commit -m "First commit"
+git remote origin "link"
+git push origin master "link" 
