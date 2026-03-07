@@ -44,36 +44,23 @@
 
 
 
-
-
-
-
-
       (= input "2")
       (do
         (print "Введите число n (делитель): ") (flush)
         (let [n (Integer/parseInt (read-line))
-              data (gen/generate (gen/vector gen/int 20))
-              
-              ;; 1. (sort data) - сначала сортируем весь список
               ;; 2. (filter ...) - оставляем только те, где остаток от деления на n равен 0
-              result (filter (fn [x] (= (mod x m) 0)) 
-                             (sort data))]
+              result (filter (fn [x] (= (mod x n) 0)) (sort m))]
           
           (println "\n--- Результат фильтрации ---")
-          (println "Исходный список (отсортирован):" (sort data))
+          (println "Исходный список (отсортирован):" (sort m))
           (println "Числа, которые делятся на" m "без остатка:")
-          
+
           (if (empty? result)
             (println "Таких чисел в списке не нашлось.")
             (println result)))
         (recur m))
 
       
-
-
-
-
 
 
 
