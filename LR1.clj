@@ -16,7 +16,7 @@
 ;;это ввод числа(вместо какого нибудь cin или gets...)
 (let[input (read-line) n (Integer/parseInt input)]
 
-;; Генерируем вектор и конвертируем его в список
+;; Генерация вектора и конвертация его в список(так будто бы легче) 
 (def q (apply list (gen/generate (gen/vector gen/int n))))
 
 (println "список:" q))
@@ -26,18 +26,14 @@
   (println "Меню:")
   (println "0-выход")
   (println "1-сортировка по возрастанию")
-  (println "2-подсчет чисел")
+  (println "2-фильтрация списка (фильтруем только ч делящиеся на ч)")
   (let [input (read-line)]
     (cond
       (= input "0") (println "Выход...") ; Просто выходим
 
       (= input "1")
-      (do
-        (print "Сколько чисел? ") (flush)
-        (let [n-str (read-line)
-              n (Integer/parseInt n-str)
-              m (apply list (gen/generate (gen/vector gen/int n)))]
-          (println "Ваш список:" m))
+      (do 
+        (println "отсортированный список"(sort m))
         (recur m)) ; Возврат в меню  
 
 
@@ -57,18 +53,16 @@
       (do
         (print "Введите число n (делитель): ") (flush)
         (let [n (Integer/parseInt (read-line))
-              ;; Генерируем 20 случайных чисел
               data (gen/generate (gen/vector gen/int 20))
               
-              ;; Логика: 
               ;; 1. (sort data) - сначала сортируем весь список
               ;; 2. (filter ...) - оставляем только те, где остаток от деления на n равен 0
-              result (filter (fn [x] (= (mod x n) 0)) 
+              result (filter (fn [x] (= (mod x m) 0)) 
                              (sort data))]
           
           (println "\n--- Результат фильтрации ---")
           (println "Исходный список (отсортирован):" (sort data))
-          (println "Числа, которые делятся на" n "без остатка:")
+          (println "Числа, которые делятся на" m "без остатка:")
           
           (if (empty? result)
             (println "Таких чисел в списке не нашлось.")
@@ -85,7 +79,7 @@
 
 
 
-      
+
       :else
       (do
         (println "Неизвестная команда!")
