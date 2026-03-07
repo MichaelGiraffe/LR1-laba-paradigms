@@ -1,4 +1,4 @@
-;;подключение библиотек (лучше дайте полинковать либы в C++ ;(   )
+;;подключение библиотек (лучше дайте полинковать либы в C++ ;(
 (require '[clojure.test.check :as tc])
 (require '[clojure.test.check.generators :as gen])
 (require '[clojure.test.check.properties :as prop])
@@ -17,12 +17,12 @@
 (let[input (read-line) n (Integer/parseInt input)]
 
 ;; Генерируем вектор и конвертируем его в список
-(def m (apply list (gen/generate (gen/vector gen/int n))))
+(def q (apply list (gen/generate (gen/vector gen/int n))))
 
-(println "список:" m))
+(println "список:" q))
 
 
-(loop []
+(loop [m q]
   (println "Меню:")
   (println "0-выход")
   (println "1-сортировка по возрастанию")
@@ -38,9 +38,55 @@
               n (Integer/parseInt n-str)
               m (apply list (gen/generate (gen/vector gen/int n)))]
           (println "Ваш список:" m))
-        (recur)) ; Возврат в меню
+        (recur m)) ; Возврат в меню  
 
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      (= input "2")
+      (do
+        (print "Введите число n (делитель): ") (flush)
+        (let [n (Integer/parseInt (read-line))
+              ;; Генерируем 20 случайных чисел
+              data (gen/generate (gen/vector gen/int 20))
+              
+              ;; Логика: 
+              ;; 1. (sort data) - сначала сортируем весь список
+              ;; 2. (filter ...) - оставляем только те, где остаток от деления на n равен 0
+              result (filter (fn [x] (= (mod x n) 0)) 
+                             (sort data))]
+          
+          (println "\n--- Результат фильтрации ---")
+          (println "Исходный список (отсортирован):" (sort data))
+          (println "Числа, которые делятся на" n "без остатка:")
+          
+          (if (empty? result)
+            (println "Таких чисел в списке не нашлось.")
+            (println result)))
+        (recur m))
+
+      
+
+
+
+
+
+
+
+
+
+      
       :else
       (do
         (println "Неизвестная команда!")
-        (recur))))) ; Возврат в меню
+        (recur m))))) ; Возврат в меню
