@@ -32,12 +32,12 @@
       (= input "0") (println "Выход...") ; Просто выходим
 
       (= input "1")
-      (do 
-        (println "отсортированный список"(sort m))
+      (do
+        (println "отсортированный список" (sort m))
         (recur m)) ; Возврат в меню  
 
 
-      
+
 
 
 
@@ -50,22 +50,41 @@
         (let [n (Integer/parseInt (read-line))
               ;; 2. (filter ...) - оставляем только те, где остаток от деления на n равен 0
               result (filter (fn [x] (= (mod x n) 0)) (sort m))]
-          
+
           (println "\n--- Результат фильтрации ---")
           (println "Исходный список (отсортирован):" (sort m))
-          (println "Числа, которые делятся на" m "без остатка:")
+          (println "Числа, которые делятся на" n "без остатка:")
 
           (if (empty? result)
             (println "Таких чисел в списке не нашлось.")
             (println result)))
         (recur m))
 
-      
 
+      ;;попытался реализовать функционал как у метода .partition в ruby
+      (= input "3")
+      (do
+        (print "Введите число n (делитель): ") (flush)
+        ;; group-by
+        (let [n (Integer/parseInt (read-line))
+              ;; ВАЖНО: 0 должен быть ВНУТРИ скобок функции =, 
+              ;; чтобы получилось "равно ли (mod x n) нулю"
+              group (group-by (fn [x] (= (mod x n) 0)) (sort m))
 
+              ;; выделим массивы с true и false
+              result (get group true)
+              not_result (get group false)]
+          
+          (println "список сгруппированный" group) 
 
+          (if (empty? result)
+            (println "Таких чисел в списке не нашлось")
+            (println "Делятся нацело:" result))
 
-
+          (if (empty? not_result)
+            (println "Все числа списка нашлись")
+            (println "НЕ делятся нацело:" not_result)))
+        (recur m))
 
       :else
       (do
