@@ -5,7 +5,7 @@ n=gets.to_i
 #тут можно было бы сократить написав m=Array.new(n) {rand(1000)}
 m=[]
 n.times do
-    m<<rand(1000)
+    m << rand(1000)
 end
 puts m.inspect
 
