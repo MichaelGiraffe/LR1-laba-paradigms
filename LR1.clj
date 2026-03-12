@@ -4,13 +4,13 @@
 (require '[clojure.test.check.properties :as prop])
 
 ;; Пример генерации случайного числа
-(println "Случайное число:" (gen/generate gen/int))
+(println "случайное число:" (gen/generate gen/int))
 
-(println "Привет из Clojure!")
+(println "введите кол-во чисел в массиве:")
 
 ;; это я создал вектор как-то через функцию
 ;;при том massive-это имя массива (выглядит проклято)
-;;(def massive-vector [1 2 3])
+;;(def massive-vector [1 2 3]);;добавление чисел в массив
 ;;(println ((conj massive-vector 4 5) 3))
 
 ;;это ввод числа(вместо какого нибудь cin или gets...)
