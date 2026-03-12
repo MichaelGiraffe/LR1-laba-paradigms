@@ -27,23 +27,16 @@
   (println "0-выход")
   (println "1-сортировка по возрастанию")
   (println "2-фильтрация списка (фильтруем только ч делящиеся на ч)")
+  (println" 3-группировка списка")
   (let [input (read-line)]
     (cond
-      (= input "0") (println "Выход...") ; Просто выходим
-
+      (= input "0") (println "выход...") ; Просто выходим
+      
       (= input "1")
       (do
         (println "отсортированный список" (sort m))
         (recur m)) ; Возврат в меню  
-
-
-
-
-
-
-
-
-
+      
       (= input "2")
       (do
         (print "Введите число n (делитель): ") (flush)
@@ -52,11 +45,11 @@
               result (filter (fn [x] (= (mod x n) 0)) (sort m))]
 
           (println "\n--- Результат фильтрации ---")
-          (println "Исходный список (отсортирован):" (sort m))
-          (println "Числа, которые делятся на" n "без остатка:")
+          (println "исходный список (отсортирован):" (sort m))
+          (println "числа, которые делятся на" n "без остатка:")
 
           (if (empty? result)
-            (println "Таких чисел в списке не нашлось.")
+            (println "таких чисел в списке не нашлось.")
             (println result)))
         (recur m))
 
@@ -64,7 +57,7 @@
       ;;попытался реализовать функционал как у метода .partition в ruby
       (= input "3")
       (do
-        (print "Введите число n (делитель): ") (flush)
+        (print "введите число n (делитель): ") (flush)
         ;; group-by
         (let [n (Integer/parseInt (read-line))
               ;; ВАЖНО: 0 должен быть ВНУТРИ скобок функции =, 
@@ -78,15 +71,15 @@
           (println "список сгруппированный" group) 
 
           (if (empty? result)
-            (println "Таких чисел в списке не нашлось")
-            (println "Делятся нацело:" result))
+            (println "таких чисел в списке не нашлось")
+            (println "делятся нацело:" result))
 
           (if (empty? not_result)
-            (println "Все числа списка нашлись")
-            (println "НЕ делятся нацело:" not_result)))
+            (println "все числа списка нашлись")
+            (println "не делятся нацело:" not_result)))
         (recur m))
 
       :else
       (do
-        (println "Неизвестная команда!")
+        (println "неизвестная команда!")
         (recur m))))) ; Возврат в меню
